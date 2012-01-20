@@ -9,7 +9,35 @@ page.onAlert = function(str) { console.log(str); }
 page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
     // jQuery is loaded, now manipulate the DOM
 	var newHtml = (page.evaluate(function () {
-		var oStr = "";
+		$('.ocr_line[title~="bbox"], .ocr_line').each(function() {
+			var maxHeight = 0;
+			var baseline = 0;
+			try {
+				var t = ($(this).attr('title'));
+				var matches = t.match(/bbox (\d+) (\d+) (\d+) (\d+)/);//indexOf("bbox");
+				var tlx = (matches[1]);
+				var tly = (matches[2]);
+				var brx = (matches[3]);
+				var bry = (matches[4]);
+				maxHeight = (maxHeight > (bry-tly)) ? maxHeight : (bry-tly);
+				baseline = Math.max(baseline, brx, bry);
+			} catch(e) {
+				console.log(e);
+			}
+			
+			console.log("Max Height for " + this.id + "  "  + maxHeight);
+			console.log("Baseline for " + this.id + "  "  + baseline);
+			
+			$(this).find('*').each(function() {
+				$(this).css("bottom", baseline+"px");											
+			});
+			$(this).css("position", "absolute");
+			$(this).css("font-size", (bry-tly)+"px");
+			$(this).css("left", tlx+"px");
+			//$(this).css("bottom", baseline+"px");								
+		});
+
+
 		$('*[title~="bbox"]').each(function() {
 			var t = ($(this).attr('title'));
 			var matches = t.match(/bbox (\d+) (\d+) (\d+) (\d+)/);//indexOf("bbox");
@@ -22,7 +50,7 @@ page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"
 			$(this).css("left", tlx+"px");
 			$(this).css("width", (brx-tlx)+"px");
 			$(this).css("height", (bry-tly)+"px");
-			$(this).css("font-size", (bry-tly)+"px");		
+//			$(this).css("font-size", (bry-tly)+"px");		
 		});
 		return "<html>" + $("html").html() + "</html>";
 		//return document.documentElement.innerHTML;
