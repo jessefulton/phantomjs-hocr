@@ -9,6 +9,8 @@ page.onAlert = function(str) { console.log(str); }
 page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
     // jQuery is loaded, now manipulate the DOM
 	var newHtml = (page.evaluate(function () {
+	
+
 		//.ocr_page .ocr_carea .ocr_par .ocr_line .ocr_word .ocr_xword
 	/*
 		$('.ocr_line[title~="bbox"], .ocr_line').each(function() {
@@ -77,6 +79,13 @@ page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"
 			//$(this).css("border", "1px solid green");
 //			$(this).css("font-size", (bry-tly)+"px");		
 		});
+		
+		$('.xocr_word').each(function() {
+			var theWord = $(this).text();
+			var fontSize = $(this).closest(".ocr_line").css("font-size");
+			$(this).html("<img src='http://0.0.0.0:5100/captcha/" + encodeURIComponent(theWord) + "/" + fontSize + "' />");
+		});
+		
 		return "<html>" + $("html").html() + "</html>";
 	}));
 
