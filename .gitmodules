@@ -1,0 +1,3 @@
+[submodule "includes/captchafy"]
+	path = includes/captchafy
+	url = git://github.com/jessefulton/node-captchafy.git
