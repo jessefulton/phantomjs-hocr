@@ -11,7 +11,6 @@ function hocrLayout(bgImg) {
 		}
 	}
 
-	alert("bgImg " + bgImg);
 
 	if (bgImg) {
 		$(document.body).css("background", "transparent url('" + bgImg + "') 0 0 no-repeat");
