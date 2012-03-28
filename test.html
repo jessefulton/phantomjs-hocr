@@ -7,6 +7,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
+	alert('hai');
 		//.ocr_page .ocr_carea .ocr_par .ocr_line .ocr_word .ocr_xword
 	/*
 		$('.ocr_line[title~="bbox"], .ocr_line').each(function() {
@@ -68,6 +69,7 @@ $(function() {
 			var brx = (matches[3]);
 			var bry = (matches[4]);
 			$(this).css("position", "absolute");
+			$(this).css("text-align", "center");
 			//$(this).css("top", tly+"px");
 			$(this).css("left", tlx+"px");
 			$(this).css("width", (brx-tlx)+"px");
