@@ -126,6 +126,7 @@ casper.then(function() {
 
 casper.then(function() {
 	this.capture(fileName + ".png");
+	this.capture(fileName + ".pdf");
 });
 
 casper.run(function() {
