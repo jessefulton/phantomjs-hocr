@@ -1,12 +1,14 @@
 #!/bin/bash
 # convert.sh
-# argument = pdf
-
+# argument1 = pdf
+#
+# This file will create hOCR versions of PDF files. It will also generate PDF & TIFF versions of each page within the PDF
 
 if [ ! -n "$1" ]
 then
-  echo "Usage: `basename $0` argument1 argument2 etc."
-  exit $E_BADARGS
+	echo "ERROR: You must supply a file to convert"
+	echo "USAGE: `basename $0` file.pdf"
+	exit $E_BADARGS
 fi  
 
 
