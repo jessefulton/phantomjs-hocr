@@ -42,10 +42,10 @@ if (fileName.indexOf("http") != 0) {
 }
 
 
-casper.on('remote.alert', function(str) { console.log("ALERT: \t" + str); });
-casper.on('remote.message', function(str) { console.log("CONSOLE: \t" + str); });
+//casper.on('remote.alert', function(str) { console.log("ALERT: \t" + str); });
+//casper.on('remote.message', function(str) { console.log("CONSOLE: \t" + str); });
 
-console.log("Opening URL " + startUrl, "info");
+//console.log("Opening URL " + startUrl, "info");
 
 
 

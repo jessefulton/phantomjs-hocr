@@ -48,3 +48,9 @@ do
 done;
 
 popd
+
+for hocr in $(ls -a ${HOCR_DIR}/*.html)
+do
+	echo $hocr
+	casperjs render.js $hocr
+done;
