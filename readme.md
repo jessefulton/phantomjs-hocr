@@ -7,7 +7,7 @@ Requires Tesseract, ImageMagick, and CasperJS
 Usage
 =======
 	sh hocr.sh sources/filename.pdf 
-	casperjs render.js processed/hocr/filename/filename001.html
+	casperjs render.js processed/hocr/filename/filename001.html <-- Not needed any more
 
 To Do
 =======
