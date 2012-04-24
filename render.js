@@ -57,64 +57,9 @@ casper.thenEvaluate(function(bg) {
 
 casper.thenEvaluate(function() {
 		var captchafy = module.exports;
-		
-		var getTextNodesIn = function(el) {
-			var whitespace = /^\s*$/;
-			return $(el).find("*").andSelf().contents().filter(function() {
-				return (this.nodeType == 3) && !whitespace.test(this.nodeValue);
-			});
-		};
-		
-		try {	
-			getTextNodesIn($(document.body)).each(function() {
-				var fontSize = parseInt($(this.parentNode).css("font-size"));
-				var rgbString = $(this.parentNode).css("color");
-				
-				var parts = rgbString.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-				// parts now should be ["rgb(0, 70, 255", "0", "70", "255"]
-				
-				delete (parts[0]);
-				for (var i = 1; i <= 3; ++i) {
-					parts[i] = parseInt(parts[i]).toString(16);
-					if (parts[i].length == 1) parts[i] = '0' + parts[i];
-				} 
-				var color = "#" + parts.join('').toUpperCase();
-				
-				var fontface = "Times"; //req.query.font ? req.query.font : "Times";
-				
-				var text = this.nodeValue;
-
-				var cnvs = document.createElement("canvas");
-				document.body.appendChild(cnvs);
-				var captcha = captchafy.create(cnvs);
-
-
-				captcha.init(text, fontSize, fontface); //, 300);
-				//noiseProducer.snow(captcha);
-				//textProducer.basic(captcha, {"text": text, "size": fontSize});
-				
-				console.log("captchafying " + text);
-				
-				captcha
-					//.add(captchafy.text.basic, {"text": text, "size": fontSize, "fillStyle": color, "font": fontface })
-					.add(captchafy.text.wavy, {"text": text, "size": fontSize, "fillStyle": color, "font": fontface })
-					.add(captchafy.noise.blob, {"fillStyle": color, "h": fontSize, "w": (fontSize * 1.5)})
-					.render();
-				
-				captcha.crop();
-
-				//$(this).replaceWith(this.nodeValue.replace(/([a-z0-9]+)/gi, '<img src="'+ captcha.canvas.toDataURL() + '" />'));
-				$(this).replaceWith('<img src="'+ captcha.canvas.toDataURL() + '" />');
-				document.body.removeChild(cnvs);
-			});
-		}
-		catch(e) {
-			//handle exception
-			alert(e);
-		}
-		
-
-		
+		captchafy.captchafyText(jQuery, jQuery(document.body), function() {
+			jQuery(document.body).addClass("captchafied");
+		});		
 });
 
 casper.then(function() {
@@ -131,7 +76,7 @@ casper.then(function() {
 
 casper.run(function() {
 	//console.log(newHTML, "info");
-	fs.write(fileName + '_fubaz.html', newHTML, 'w');
+	fs.write(fileName + '.captchafied.html', newHTML, 'w');
 	this.exit();
 
 });

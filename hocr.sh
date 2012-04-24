@@ -2,6 +2,8 @@
 # convert.sh
 # argument1 = pdf
 #
+# TODO: This breaks if there are spaces in the file name...
+#
 # This file will create hOCR versions of PDF files. It will also generate PDF & TIFF versions of each page within the PDF
 
 if [ ! -n "$1" ]
